@@ -1,0 +1,140 @@
+body{
+    background: #0F0E17;
+    /* background: #221392: */
+}
+
+.btn-logout{
+    display: flex;
+    justify-content: flex-end;
+    background-color: none;
+    border: none;
+    color: white;
+    cursor: pointer;;
+    font-size: 18px;
+    padding: 0;
+}
+
+.btn-logout:hover{
+    color: gray;
+}
+
+.container-carousel{
+    margin: 3rem 2rem;
+}
+
+.img-carousel{
+    height: 400px;
+    width: 100%;
+    /* margin: 3rem 4rem 2rem 3rem; */
+}
+
+.carousel-buttons{
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    bottom: 50px;
+    right: 20px;
+    
+}
+
+.cards-title{
+    color: white;
+    font-size: 60px;
+    font-weight: 600;
+    margin: 4rem 2rem 2rem;
+}
+
+.container-cards{
+    justify-content: center;    
+}
+
+.card{
+    width: 220px;
+    height: 330px;
+    margin: 1.5rem;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+}
+
+.img-card{    
+    width: 220px;
+    height: 330px;
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.card-average{
+    border: 1px solid black;
+    border-radius: 0 20px 20px 0;
+    z-index: 2;
+    position: absolute;
+    top: 30px;    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 80px;
+    background-color: black;
+    opacity: 0.7;
+}
+
+h3{
+    color: white;
+    font-size: 26px;
+    font-weight: 10;
+}
+
+.container-modal{
+    height: fit-content;
+}
+
+.container-modal-body{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img-modal{
+    width: 282.45px;
+    height: 403.49px;
+    /* left: 0px;
+    top: 259.24px; */
+
+    /* transform: matrix(0.71, -0.41, 1.22, 0.71, 0, 0); */
+}
+
+.data-modal{
+    display: inherit;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px 40px; 
+}
+
+.overview-modal{
+     width: 400px; 
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.button-now{
+    background-color: #FED941;
+    color: black;
+}
+
+.button-later{
+    background-color: black;
+    color: #FED941;
+}
+
+.container-modal-trailer{
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,54 @@
+.form-container{
+    border: 1px solid white;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 20px;
+}
+
+.position-logo{
+    margin: 20px;
+}
+
+.link-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.label-size{
+    width: 300px;
+}
+
+.label-color{
+    color: white;
+}
+
+.container-button-link{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-s-n{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: fit-content;
+}
+
+.link-register{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.link-position{
+    position: relative;
+    top: -5px;
+}
