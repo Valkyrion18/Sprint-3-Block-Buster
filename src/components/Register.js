@@ -103,7 +103,7 @@ export const Register = () => {
                         </Button>
 
                         <Container className="link-register">
-                            <Form.Label className="label-color me-2">Ya estas registrado?</Form.Label>
+                            <Form.Label className="label-color me-2">Ya estás registrado?</Form.Label>
                             <Link to="/" className="link-position">Iniciar Sesión</Link>
                         </Container>
 

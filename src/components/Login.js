@@ -3,7 +3,7 @@ import { Form, Button, Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useForm } from '../hooks/useForm';
 import { useDispatch } from 'react-redux';
-import { loginEmailPassword, loginGoogle } from '../actions/actionLogin';
+import { loginEmailPassword, loginGoogle, loginFacebook } from '../actions/actionLogin';
 import '../styles/style-login.css'
 
 function Login({ history }) {
@@ -28,15 +28,20 @@ function Login({ history }) {
         history.replace('/')
     }
 
+    const handleFacebook = () => {
+        dispatch(loginFacebook());
+        history.replace('/')
+    }
+
     return (
         <div onSubmit={handleLogin} >
-            
+
             <Container className="link-header">
-            <img src="https://res.cloudinary.com/dkf2jot5c/image/upload/v1644911579/Sprint-3/logo-blockBuster_co9wih.png" alt="" className='position-logo'/>
+                <img src="https://res.cloudinary.com/dkf2jot5c/image/upload/v1644911579/Sprint-3/logo-blockBuster_co9wih.png" alt="" className='position-logo' />
 
                 <h1 className='label-color'>Disfruta de los mejores títulos y contenidos</h1>
             </Container>
-           
+
             <Container className="form-container">
                 <Container className="container-button-link mt-3">
                     <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -78,7 +83,7 @@ function Login({ history }) {
                         className="google-btn button-s-n mb-4"
                         onClick={handleGoogle}
                         variant="success"
-                    >Continuar con Google
+                    ><h4 className="button-label">Continuar con Google</h4>
                         <Container className="google-icon-wrapper">
                             <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="google button" />
                         </Container>
@@ -86,12 +91,12 @@ function Login({ history }) {
 
                     <Button
                         className="google-btn button-s-n"
-                        // onClick={handleGoogle}
+                        onClick={handleFacebook}
                         variant="success"
-                    >Continuar con Facebook
+                    ><h4 className="button-label">Continuar con Facebook</h4>
                         <Container className="google-icon-wrapper">
-                            <img className="google-icon" src="https://res.cloudinary.com/dkf2jot5c/image/upload/v1644981775/Sprint-3/icon-facebook_z2nepn.png" alt="google button" width="35px" height="35px"/>
-                            
+                            <img className="google-icon" src="https://res.cloudinary.com/dkf2jot5c/image/upload/v1644981775/Sprint-3/icon-facebook_z2nepn.png" alt="google button" width="30px" height="30px" />
+
                         </Container>
                     </Button>
                 </Container>

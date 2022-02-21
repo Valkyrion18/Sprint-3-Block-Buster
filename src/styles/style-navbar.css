@@ -1,6 +1,7 @@
-.nav-bar-2{
+.navbar-container{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .button-navbar{
@@ -20,9 +21,49 @@
     width: 500px;
 }
 
+.container-address{
+    display: flex;
+    flex-direction: row;
+    margin-left: 4rem;
+}
+
 .img-search{
     width: 50px;
     height: 50px;
     position: relative;
     right: 3px;
+}
+
+.img-location{
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.address-label{
+    text-align: center;
+}
+
+.btn-favs{
+    width: 40px;
+    margin-right: 70px;
+    position: relative;
+    top: -5px;
+    cursor: pointer;
+}
+
+.btn-logout{
+    background-color: none;
+    width: 320px;
+    border: none;
+    color: white;
+    cursor: pointer;;
+    font-size: 18px;
+    text-align: center;
+    margin-right: 40px;
+}
+
+.btn-logout:hover{
+    color: gray;
 }

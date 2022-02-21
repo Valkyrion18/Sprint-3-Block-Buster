@@ -3,29 +3,30 @@ body{
     /* background: #221392: */
 }
 
-.btn-logout{
+.search-bar{
     display: flex;
+    flex-direction: row;
     justify-content: flex-end;
-    background-color: none;
-    border: none;
-    color: white;
-    cursor: pointer;;
-    font-size: 18px;
-    padding: 0;
-}
-
-.btn-logout:hover{
-    color: gray;
+    margin-left: 12rem;
+    margin-bottom: 30px;
 }
 
 .container-carousel{
-    margin: 3rem 2rem;
+    margin: 1rem 7rem 0 7rem; 
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.container-image{
+    display: flex;
+    justify-content: center;
 }
 
 .img-carousel{
     height: 400px;
     width: 100%;
-    /* margin: 3rem 4rem 2rem 3rem; */
+    border-radius: 20px;
 }
 
 .carousel-buttons{
@@ -33,8 +34,41 @@ body{
     justify-content: flex-end;
     position: relative;
     bottom: 50px;
-    right: 20px;
-    
+    right: 20px;    
+}
+
+.container-pages{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.container-input{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.label-input{
+    color: white;
+}
+
+.input-pages{
+    width: 60px;
+    text-align: center;
+}
+
+.btn-pages{
+    width: 200px;
+    color: white;
+    cursor: pointer;;
+    font-size: 18px;
+    text-align: center;
+    margin-right: 40px;
+}
+
+.btn-pages:hover{
+    text-decoration: underline;
 }
 
 .cards-title{
@@ -42,10 +76,13 @@ body{
     font-size: 60px;
     font-weight: 600;
     margin: 4rem 2rem 2rem;
+    display: flex;
 }
 
 .container-cards{
-    justify-content: center;    
+    display: flex;    
+    justify-content: center;
+    margin-left: 6rem;
 }
 
 .card{
@@ -56,12 +93,14 @@ body{
     cursor: pointer;
     border: none;
     border-radius: 20px;
+    box-shadow: 5px 5px 10px white;
+    overflow: hidden;
 }
 
 .img-card{    
     width: 220px;
     height: 330px;
-    border-radius: 20px;
+    border-radius: 0;
     z-index: 1;
 }
 
@@ -78,6 +117,17 @@ body{
     width: 80px;
     background-color: black;
     opacity: 0.7;
+}
+
+.btn-trailer-description{
+    font-family: 'Montserrat';
+    font-size: 18px;
+    font-weight: 120px;
+    height: 30px;
+    background-color: #FED941;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+    
 }
 
 h3{
@@ -124,14 +174,12 @@ h3{
     line-height: 27px;
 }
 
-.button-now{
-    background-color: #FED941;
-    color: black;
-}
-
-.button-later{
-    background-color: black;
-    color: #FED941;
+.button-trailer{
+    width: 200px;
+    height: 50px;
+    position: relative;
+    top: -20px;
+    cursor: pointer;
 }
 
 .container-modal-trailer{

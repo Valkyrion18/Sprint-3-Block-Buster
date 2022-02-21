@@ -1,37 +1,37 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Button, Card, Carousel, Container, Modal } from 'react-bootstrap';
-import { img_path, url } from '../helpers/url';
-import { trailers } from '../data-trailers/bdtrailers.js'
+import { Card, Container, Form, FormControl, Modal } from 'react-bootstrap';
+import { url, img_path, search_url } from '../helpers/url';
+import CarouselTrailers from './Carousel';
 import '../styles/style-home.css'
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { logout } from '../actions/actionLogin';
 
 export const Home = () => {
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const [movies, setMovies] = useState([])
-  const [index, setIndex] = useState(0);
+  const [movies, setMovies] = useState([]);
   const [show, setShow] = useState(false);
-  const [showTrailer, setShowTrailer] = useState(false);
   const [chooseDescription, setChooseDescription] = useState('')
-  const [chooseTrailer, setChooseTrailer] = useState('')
+  const [showTrailer, setShowTrailer] = useState(false);
+  const [chooseTrailer, setChooseTrailer] = useState('');
+  const [page, setPage] = useState(1)
+  const [inputPage, setInputPage] = useState({
+    currentPage: 1
+  })
+  const [searchValue, setSearchValue] = useState({
+    busqueda: ''
+  });
 
   useEffect(() => {
-    getData()
-  }, [movies])
+    getData(url + page.toString())
+  }, [page])
 
-  const getData = async () => {
-    const resp = await fetch(url)
-    const data = await resp.json()
-    setMovies(data.results)
+  const getData = (url_request) => {
+    fetch(url_request)
+      .then(response => response.json())
+      .then(data => setMovies(data.results))
+      .catch(error => console.log(error))
   }
 
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
+  const { busqueda } = searchValue
+  const { currentPage } = inputPage
 
   // Inicializacion Modal Descripcion
 
@@ -41,89 +41,160 @@ export const Home = () => {
     setChooseDescription(movies.find(movie => movie.id === id))
   }, [movies])
 
-  // Inicializacion Modal Trailer
+  // Inicializacion Modal Trailers de las Peliculas desde las Cards
 
   const handleCloseT = () => setShowTrailer(false);
   const handleShowT = useCallback((id) => {
     setShowTrailer(true);
-    const trailerB = trailers.find(trailer => trailer.id === id)
-    setChooseTrailer("https://www.youtube-nocookie.com/embed/" + trailerB.trailer + "?rel=0&amp;controls=0&amp;showinfo=0")
+    fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=a049d6086798142f1ce78897272be805&language=es`)
+      .then(response => response.json())
+      .then(data => 
+        data.results.length === 0? 
+        setChooseTrailer('error')
+        :
+        setChooseTrailer(data.results[0].key)
+        )
+      .catch(error => console.log(error)) 
   }, [])
 
-  const handleLogout = () => {
-    dispatch(logout())
-    navigate("/login")
-}
+  // Búsqueda de películas por el nombre
+
+  const handleInputChange = ({ target }) => {
+    setSearchValue({
+      ...searchValue,
+      [target.name]: target.value
+    });
+    filterMovies()
+  }
+
+  const filterMovies = () => {
+    if (busqueda.length === 1) {
+      getData(url + page.toString())
+    }
+    else {
+      getData(search_url + busqueda)
+      // const arrayMovies = movies.filter((movie) =>
+      //   movie.title.toLocaleLowerCase().includes(busqueda.toLocaleLowerCase())
+      // )
+      // console.log(arrayMovies)
+      // setMovies(arrayMovies)
+    }
+  }
+
+  // Paginación del listado de películas
+
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1)
+      setInputPage({
+        currentPage: page - 1
+      })
+      getData(url + page.toString())
+    }
+  }
+
+  const handleNextPage = () => {
+    if (page < 500) {
+      setPage(page + 1)
+      setInputPage({
+        currentPage: page + 1
+      })
+      getData(url + page.toString())
+    }
+  }
+
+  const handleInputPage = ({ target }) => {
+    setInputPage({
+      ...inputPage,
+      [target.name]: target.value
+    });
+    setPage(currentPage)
+    getData(url + currentPage.toString())
+  }
 
   return (
 
     <div>
 
-      <Container>
-        <h4
-          className="btn-logout"
-          onClick={() => handleLogout()}>
-          Cerrar Sesión
-        </h4>
+      {/* Barra de búsqueda */}
+      <Container className="search-bar">
+        <Form className="d-flex">
+          <FormControl
+            type="search"
+            placeholder="Busca tu película favorita"
+            className="navbar-search"
+            aria-label="Search"
+            name="busqueda"
+            value={busqueda}
+            onChange={handleInputChange}
+          />
+          {/* <Button variant="warning" className="button-search"> */}
+          <img src="https://res.cloudinary.com/dkf2jot5c/image/upload/v1644919135/Sprint-3/primary-search_bu9epu.png"
+            type="button"
+            alt=""
+            className="img-search" />
+          {/* <Icon className="material-icons">delete</Icon> */}
+          {/* </Button> */}
+        </Form>
       </Container>
 
       {/* Carrusel de los trailer de las películas */}
+      <CarouselTrailers />
 
-      <Carousel
-        className='container-carousel'
-        activeIndex={index}
-        onSelect={handleSelect}>
-        {
-          trailers.map((trailer, indice) => (
-            <Carousel.Item key={indice}>
-              <img
-                className="d-flex img-carousel"
-                src={trailer.image}
-                alt="First slide"
-              />
-              <div className="carousel-buttons">
-                <Button
-                  variant="#FED941"
-                  className="button-now me-5"
-                  onClick={() => handleShowT(trailer.id)}>VER TRAILER</Button>
-                <Button variant="dark" className="button-later">VER DESPUES</Button>
-              </div>
-            </Carousel.Item>
-          ))
-        }
-      </Carousel>
+      <h1 className="cards-title" visible="false">Todas las peliculas</h1>
+
+      {/* Botones para efectuar la paginación */}
+      <Container className="container-pages mt-5">
+        <h4
+          className="btn-pages"
+          visible="false"
+          onClick={handlePreviousPage}
+        >página anterior</h4>
+        <Container className="container-input">
+          <label className="label-input me-2">Ir a página: </label>
+          <input
+            className="input-pages"
+            type="number"
+            min="1"
+            max='500'
+            name="currentPage"
+            value={currentPage}
+            onChange={handleInputPage} />
+        </Container>
+        <h4
+          className="btn-pages"
+          onClick={handleNextPage}
+        >página siguiente</h4>
+      </Container>
 
       {/* Cards de las peliculas */}
-
-      <h1 className="cards-title">Todas las peliculas</h1>
-
-      <div className='row container-cards'>
+      <Container className='row container-cards'>
         {
           movies.map(movie => (
             <Card
-              // style={{ background: 'white'}}
               key={movie.id}
-              className="card"
-              onClick={() => handleShow(movie.id)}>
+              className="card">
               <Card.Img
                 variant="top"
                 src={img_path + movie.backdrop_path}
                 alt=""
                 className="img-card"
-                onClick={() => handleShow(movie.id)} >
+                onClick={() => handleShow(movie.id)}>
               </Card.Img>
               <div className="card-average">
                 <img src="https://res.cloudinary.com/dkf2jot5c/image/upload/v1644907036/Sprint-3/Icon_ma1qlr.png" width="25px" heigth="25px" alt="" />
                 <h3>{movie.vote_average}</h3>
               </div>
+              <button className="btn-trailer-description"
+                onClick={() => handleShowT(movie.id)}><strong>VER TRAILER</strong></button>
             </Card>
           ))
         }
-      </div>
+      </Container>
 
       {/* Modal de la descripcion de las peliculas */}
 
-      <div>
+      <Container>
         <Modal show={show}
           size="lg"
           scrollable
@@ -137,24 +208,26 @@ export const Home = () => {
               <h1>{chooseDescription.title}</h1>
               <p className="overview-modal">{chooseDescription.overview}</p>
               <div>
-                <h4>Release Date: {chooseDescription.release_date}</h4>
+                <h4>Fecha de Lanzamiento: {chooseDescription.release_date}</h4>
               </div>
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="#FED941" className="button-now" onClick={handleClose}>
-              VER AHORA
-            </Button>
-            <Button variant="dark" className="button-later" onClick={handleClose}>
-              VER DESPUES
-            </Button>
+            <img
+              src="https://res.cloudinary.com/dkf2jot5c/image/upload/v1645406198/Sprint-3/now_dsaaug.png" alt=""
+              className='button-trailer me-4' />
+
+            <img
+              src="https://res.cloudinary.com/dkf2jot5c/image/upload/v1645406198/Sprint-3/after_at6ycz.png" alt=""
+              className='button-trailer'
+            />
           </Modal.Footer>
         </Modal>
-      </div>
+      </Container>
 
       {/* Modal del trailer de las peliculas */}
 
-      <div>
+      <Container>
         <Modal show={showTrailer}
           size="lg"
           scrollable
@@ -164,15 +237,15 @@ export const Home = () => {
           </Modal.Header>
           <Modal.Body className="container-modal-trailer">
             <iframe
-              src={chooseTrailer}
+              src={`https://www.youtube-nocookie.com/embed/${chooseTrailer}?rel=0&amp;controls=0&amp;showinfo=0`}
               title="myFrame"
-              width="600"
-              height="315"
-              frameborder="0" allowfullscreen>
+              width="800"
+              height="415"
+              frameBorder="0" allowFullScreen>
             </iframe>
           </Modal.Body>
         </Modal>
-      </div>
+      </Container>
 
     </div>
   )
