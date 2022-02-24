@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import { useForm } from '../hooks/useForm';
+import { useForm } from '../../hooks/useForm';
 import { useDispatch } from 'react-redux';
-import { loginEmailPassword, loginGoogle, loginFacebook } from '../actions/actionLogin';
-import '../styles/style-login.css'
+import { loginEmailPassword, loginGoogle, loginFacebook } from '../../actions/actionLogin';
+import '../../styles/style-login.css'
 
 function Login({ history }) {
 

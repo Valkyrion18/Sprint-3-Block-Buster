@@ -11,6 +11,7 @@ export const Home = () => {
   const [chooseDescription, setChooseDescription] = useState('')
   const [showTrailer, setShowTrailer] = useState(false);
   const [chooseTrailer, setChooseTrailer] = useState('');
+  const [apiUrl, setApiUrl] = useState('')
   const [page, setPage] = useState(1)
   const [inputPage, setInputPage] = useState({
     currentPage: 1
@@ -20,8 +21,9 @@ export const Home = () => {
   });
 
   useEffect(() => {
-    getData(url + page.toString())
-  }, [page])
+    setApiUrl(url + page.toString())
+    getData(apiUrl)
+  }, [apiUrl, page])
 
   const getData = (url_request) => {
     fetch(url_request)
@@ -69,7 +71,8 @@ export const Home = () => {
 
   const filterMovies = () => {
     if (busqueda.length === 1) {
-      getData(url + page.toString())
+      setApiUrl(url + page.toString())
+      getData(apiUrl)
     }
     else {
       getData(search_url + busqueda)
@@ -89,7 +92,8 @@ export const Home = () => {
       setInputPage({
         currentPage: page - 1
       })
-      getData(url + page.toString())
+      setApiUrl(url + page.toString())
+      getData(apiUrl)
     }
   }
 
@@ -99,7 +103,8 @@ export const Home = () => {
       setInputPage({
         currentPage: page + 1
       })
-      getData(url + page.toString())
+      setApiUrl(url + page.toString())
+      getData(apiUrl)
     }
   }
 
@@ -109,7 +114,8 @@ export const Home = () => {
       [target.name]: target.value
     });
     setPage(currentPage)
-    getData(url + currentPage.toString())
+    setApiUrl(url + currentPage.toString())
+    getData(apiUrl)
   }
 
   return (
@@ -208,7 +214,7 @@ export const Home = () => {
               <h1>{chooseDescription.title}</h1>
               <p className="overview-modal">{chooseDescription.overview}</p>
               <div>
-                <h4>Fecha de Lanzamiento: {chooseDescription.release_date}</h4>
+                <h4>Fecha de Estreno: {chooseDescription.release_date}</h4>
               </div>
             </div>
           </Modal.Body>

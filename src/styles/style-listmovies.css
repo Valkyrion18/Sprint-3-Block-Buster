@@ -1,0 +1,17 @@
+.color-table{
+    color: white;
+}
+
+.img-list{
+    cursor: pointer;
+}
+
+.btn-actions{
+    display: flex;
+    justify-content: space-around;
+}
+
+.icon-favs{
+    width: 20px;
+    height: 20px;
+}

@@ -1,10 +1,10 @@
 import { Form, Button, Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import { useForm } from '../hooks/useForm';
+import { useForm } from '../../hooks/useForm';
 // import { useFormik } from 'formik';
-import { registroEmailPasswordNombre } from '../actions/actionRegister';
+import { registroEmailPasswordNombre } from '../../actions/actionRegister';
 import { useDispatch } from 'react-redux';
-import '../styles/style-register.css'
+import '../../styles/style-register.css'
 
 export const Register = () => {
 

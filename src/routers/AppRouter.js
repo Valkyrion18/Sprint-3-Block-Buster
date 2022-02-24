@@ -4,14 +4,22 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Login from '../components/Login';
-import {Register} from '../components/Register';
+import Login from '../components/User/Login';
+import {Register} from '../components/User/Register';
 import { DashboardRoutes } from "./DashboardRoutes";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 import { useDispatch } from 'react-redux';
 import { getAuth,onAuthStateChanged } from "firebase/auth";
 import { loginEmailPassword } from "../actions/actionLogin";
+import styled from "styled-components";
+
+const H1 = styled.h1`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+`
 
 export const AppRouter = () => {
 
@@ -40,7 +48,7 @@ export const AppRouter = () => {
 
 if(checking){
   return(
-      <h1>Espere...</h1>
+      <H1>Un momento por favor...</H1>
   )
 }
 

@@ -1,22 +1,25 @@
 import { initializeApp } from 'firebase/app';
 import { GoogleAuthProvider } from "firebase/auth";
 import { FacebookAuthProvider } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBgcLW2HMbHO5C7h0moH_nAawdWMCx4qAI",
-  authDomain: "sprint-3-cbea4.firebaseapp.com",
-  projectId: "sprint-3-cbea4",
-  storageBucket: "sprint-3-cbea4.appspot.com",
-  messagingSenderId: "484196866702",
-  appId: "1:484196866702:web:452523da7640d3689007df"
+  apiKey: "AIzaSyDCWlo8WAyu_inDK0KJBgn2Iit_COEJfm8",
+  authDomain: "sprint-3-auth-crud.firebaseapp.com",
+  projectId: "sprint-3-auth-crud",
+  storageBucket: "sprint-3-auth-crud.appspot.com",
+  messagingSenderId: "92441949003",
+  appId: "1:92441949003:web:cd268877af215709baaece"
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore();
 const google =  new GoogleAuthProvider();
 const facebook = new FacebookAuthProvider();
 
 export{
     app,
+    db,
     google,
     facebook
 }

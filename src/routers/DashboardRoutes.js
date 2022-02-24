@@ -2,7 +2,7 @@ import {
     Routes, Route,
     Navigate
 } from 'react-router-dom';
-import Favorites from '../components/Favorites';
+import Favorites from '../components/Movies/Favorites';
 import { Home } from '../components/Home';
 import { NavBar} from '../components/NavBar';
 
