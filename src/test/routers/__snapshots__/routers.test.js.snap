@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Validar rutas Publicas y Privadas Validar el componente de Rutas Privadas 1`] = `<DashboardRoutes />`;
+
+exports[`Validar rutas Publicas y Privadas Validar el componente de Rutas Publicas 1`] = `
+<Navigate
+  to="/*"
+/>
+`;

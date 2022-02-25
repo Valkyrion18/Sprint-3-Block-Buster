@@ -1,5 +1,4 @@
 import { typesMovies } from "../types/types";
-// import { db } from "../../firebase/firebaseConfig";
 import { db } from "../firebase/firebaseConfig";
 import { addDoc, collection, getDocs, query, where, doc, deleteDoc } from "@firebase/firestore";
 
@@ -8,7 +7,6 @@ import { addDoc, collection, getDocs, query, where, doc, deleteDoc } from "@fire
 export const registerMovieAsync = (newMovie) => {
 
     return (dispatch) => {
-        console.log(newMovie)
         addDoc(collection(db,"moviesDB"),newMovie) 
         .then(resp => {
             dispatch(registerMovieSync(newMovie)) 
@@ -25,7 +23,6 @@ export const registerMovieSync = (movie) => {
         type: typesMovies.register,
         payload: movie
     }
-
 }
 
 // LISTAR PELICULAS FAVORITAS
