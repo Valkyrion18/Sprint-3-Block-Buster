@@ -3,6 +3,7 @@ import { Button, Modal } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik';
 import { updateMovieAsync } from '../../actions/actionMovies';
+import { fileUpload } from '../../helpers/FileUpload';
 
 const ModalUpdate = (datosModal) => {
 
@@ -18,12 +19,25 @@ const ModalUpdate = (datosModal) => {
             sinopsis: datosModal.datosModal.sinopsis
         },
         onSubmit: (data) => {
-            dispatch(updateMovieAsync(datosModal.titulo, datosModal))
+            dispatch(updateMovieAsync(data))
         }
     })
 
+    const handleFileChanged = (e) => {
+        formik.initialValues.url = ''
+        const file = e.target.files[0];
+        fileUpload(file)
+            .then(response => {
+                formik.initialValues.url = response
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
+    }
+
     useEffect(() => {
-        console.log(datosModal)
+        // console.log(datosModal)
     }, [datosModal])
 
     const closeModal = () => {
@@ -44,12 +58,8 @@ const ModalUpdate = (datosModal) => {
                             className="form-control "
                             placeholder="url image"
                             name="url"
+                            onChange={handleFileChanged}
                             required />
-
-                        <button
-                            className="btn btn-dark"
-                            type="button">Imagen</button>
-
 
                         <input
                             type="text"
@@ -93,9 +103,9 @@ const ModalUpdate = (datosModal) => {
 
                         <Modal.Footer>
                             <Button
-                                variant="secondary"
+                                variant="dark"
                                 onClick={closeModal}>Cerrar</Button>
-                            <Button variant="primary"
+                            <Button variant="warning"
                                 type="submit">Actualizar</Button>
                         </Modal.Footer>
                     </form>

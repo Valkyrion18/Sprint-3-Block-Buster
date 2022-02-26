@@ -54,7 +54,7 @@ export const deleteMovieAsync = (title) =>{
     return async(dispatch) => {
 
         const moviesCollection = collection(db,"moviesDB");
-        const q = query(moviesCollection,where("titulo","==",title)) 
+        const q = query(moviesCollection,where("titulo", "==", title)) 
         const datos = await getDocs(q); 
 
         datos.forEach((docu) => {
@@ -73,25 +73,19 @@ export const deleteSync = (title) => {
 
 // ACTUALIZAR INFORMACION PELICULAS 
 
-export const updateMovieAsync = (title, data) => {
+export const updateMovieAsync = (data) => {
     return async(dispatch) => {
+        console.log(data.url)
         const moviesCollection = collection(db,"moviesDB");
-        const q = query(moviesCollection,where("titulo","==",title)) 
+        const q = query(moviesCollection,where("titulo", "==" ,data.titulo)) 
 
         const datos = await getDocs(q); 
 
-        datos.forEach(async(docu) => {
-            updateDoc(doc(db,"moviesDB",docu.id));
+        datos.forEach((docu) => {
+            updateDoc(doc(db,"moviesDB",docu.id), data);
         })
-        dispatch(updateSync(title));
-
+        dispatch(listMoviesAsync());
     }
 }
 
-export const updateSync = (title) => {
-    return{
-        type: typesMovies.update,
-        payload: title
-    }
-}
 

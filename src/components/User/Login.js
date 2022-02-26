@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { loginEmailPassword, loginGoogle, loginFacebook } from '../../actions/actionLogin';
 import '../../styles/style-login.css'
 
-function Login({ history }) {
+function Login() {
 
     const dispatch = useDispatch();
 
@@ -20,17 +20,17 @@ function Login({ history }) {
     const handleLogin = (e) => {
         e.preventDefault();
         dispatch(loginEmailPassword(email, password));
-        history.replace('/')
+        // history.replace('/')
     }
 
     const handleGoogle = () => {
         dispatch(loginGoogle());
-        history.replace('/')
+        // history.replace('/')
     }
 
     const handleFacebook = () => {
         dispatch(loginFacebook());
-        history.replace('/')
+        // history.replace('/')
     }
 
     return (
