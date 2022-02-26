@@ -22,7 +22,7 @@ export const NavBar = () => {
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=false&key=${GOOGLE_API_KEY}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 setAddress(data.results[6].formatted_address)
             })
             .catch(error => alert(error))

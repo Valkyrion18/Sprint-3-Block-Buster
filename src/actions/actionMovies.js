@@ -1,6 +1,6 @@
 import { typesMovies } from "../types/types";
 import { db } from "../firebase/firebaseConfig";
-import { addDoc, collection, getDocs, query, where, doc, deleteDoc } from "@firebase/firestore";
+import { addDoc, collection, getDocs, query, where, doc, deleteDoc, updateDoc } from "@firebase/firestore";
 
 // REGISTRAR NUEVA PELICULA
 
@@ -53,8 +53,8 @@ export const listSync = (movies) => {
 export const deleteMovieAsync = (title) =>{
     return async(dispatch) => {
 
-        const estCollection = collection(db,"moviesDB");
-        const q = query(estCollection,where("titulo","==",title)) 
+        const moviesCollection = collection(db,"moviesDB");
+        const q = query(moviesCollection,where("titulo","==",title)) 
         const datos = await getDocs(q); 
 
         datos.forEach((docu) => {
@@ -71,4 +71,27 @@ export const deleteSync = (title) => {
     }
 }
 
+// ACTUALIZAR INFORMACION PELICULAS 
+
+export const updateMovieAsync = (title, data) => {
+    return async(dispatch) => {
+        const moviesCollection = collection(db,"moviesDB");
+        const q = query(moviesCollection,where("titulo","==",title)) 
+
+        const datos = await getDocs(q); 
+
+        datos.forEach(async(docu) => {
+            updateDoc(doc(db,"moviesDB",docu.id));
+        })
+        dispatch(updateSync(title));
+
+    }
+}
+
+export const updateSync = (title) => {
+    return{
+        type: typesMovies.update,
+        payload: title
+    }
+}
 

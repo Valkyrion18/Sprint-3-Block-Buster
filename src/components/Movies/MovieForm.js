@@ -24,7 +24,6 @@ export const MovieForm = () => {
                     
         },
         onSubmit: (data) => {
-            console.log(data)
             dispatch(registerMovieAsync(data))
         },
         

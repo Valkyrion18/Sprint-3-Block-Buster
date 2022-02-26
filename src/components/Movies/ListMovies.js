@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { Container, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteMovieAsync } from '../../actions/actionMovies';
+import  ModalUpdate  from './ModalUpdate'
 import '../../styles/style-listmovies.css'
 
 export const ListMovies = () => {
 
     const [show, setShow] = useState(false);
+    const [modalUpdate, setModalUpdate] = useState(false)
     const [chooseList, setChooseList] = useState({})
+    const [datosModal, setDatosModal] = useState()
 
     const dispatch = useDispatch();
 
@@ -19,6 +22,14 @@ export const ListMovies = () => {
         setChooseList(movies.find(movie => movie.titulo === titulo))
         console.log(movies.find(movie => movie.titulo === titulo))
     }
+
+    const updateModal = (titulo) => {
+        const buscado = movies.find((movie) => movie.titulo === titulo)
+
+        setModalUpdate(true)
+        setDatosModal(buscado)
+    }
+
 
     return (
         <div>
@@ -50,35 +61,39 @@ export const ListMovies = () => {
                                     <td>{element.titulo}</td>
                                     <td>
                                         <div>
-                                        <img 
-                                            src="https://res.cloudinary.com/dkf2jot5c/image/upload/v1644907036/Sprint-3/Icon_ma1qlr.png" 
-                                            alt=""
-                                            className='icon-favs me-2'/>
-                                        {element.calificacion}
+                                            <img
+                                                src="https://res.cloudinary.com/dkf2jot5c/image/upload/v1644907036/Sprint-3/Icon_ma1qlr.png"
+                                                alt=""
+                                                className='icon-favs me-2' />
+                                            {element.calificacion}
                                         </div>
                                     </td>
                                     <td>{element.fecha_lanzamiento}</td>
                                     <td>
                                         <div className="btn-actions">
-                                        <input
-                                            value="Editar"
-                                            type="button"
-                                            className="btn btn-success"
-                                            // onClick={() => dispatch(deleteMovieAsync(element.titulo))}
-                                        />
-                                        <input
-                                            value="Borrar"
-                                            type="button"
-                                            className="btn btn-danger"
-                                            onClick={() => dispatch(deleteMovieAsync(element.titulo))}
-                                        />
-                                        </div>    
+                                            <input
+                                                value="Editar"
+                                                type="button"
+                                                className="btn btn-success"
+                                                onClick={() => updateModal(element.titulo)}
+                                            />
+                                            <input
+                                                value="Borrar"
+                                                type="button"
+                                                className="btn btn-danger"
+                                                onClick={() => dispatch(deleteMovieAsync(element.titulo))}
+                                            />
+                                        </div>
                                     </td>
                                 </tr>
                             ))
                         }
                     </tbody>
                 </table>
+
+                {
+                    modalUpdate === true? <ModalUpdate datosModal={datosModal}/> : ""
+                }
 
                 {/* Modal de la descripcion de las peliculas */}
 

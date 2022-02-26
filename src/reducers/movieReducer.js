@@ -15,10 +15,10 @@ export const movieReducer = (state = initialState, action) => {
             return {
                 movies: [...action.payload]
             }
-        // case typesMovies.update:
-        //     return {
-
-        //     }
+        case typesMovies.update:
+            return {
+                movies: [...action.payload]
+            }
         case typesMovies.delete:
             return {
                 movies: state.movies.filter(movie => movie.titulo !== action.payload)
