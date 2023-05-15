@@ -100,6 +100,7 @@ export const Register = () => {
                             variant="primary"
                             type="submit">
                             Registrarse
+                            
                         </Button>
 
                         <Container className="link-register">

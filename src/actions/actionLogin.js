@@ -1,6 +1,7 @@
 import { types } from '../types/types';
 import { getAuth, signInWithPopup, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { google, facebook } from '../firebase/firebaseConfig';
+import Swal from 'sweetalert2';
 
 export const logout = () => {
     return (dispatch) => {
@@ -32,10 +33,13 @@ export const loginEmailPassword = (email, password) => {
                 dispatch(
                     loginSincrono(user.uid, user.displayName)
                 )
-                console.log('Bienvenid@');
+                Swal.fire({
+                    icon: 'success',
+                    title:'Bienvenido(a) ' + user.displayName + '!'
+                })
             })
             .catch(e => {
-                console.log('El usuario no existe');
+                alert('Usuario y/o contraseña no existen')
             })
     }
 }

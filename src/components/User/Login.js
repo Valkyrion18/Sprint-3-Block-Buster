@@ -34,7 +34,7 @@ function Login() {
     }
 
     return (
-        <div onSubmit={handleLogin} >
+        <div>
 
             <Container className="link-header">
                 <img src="https://res.cloudinary.com/dkf2jot5c/image/upload/v1644911579/Sprint-3/logo-blockBuster_co9wih.png" alt="" className='position-logo' />
@@ -69,7 +69,8 @@ function Login() {
                     <Button
                         className="button-s-n mb-4"
                         variant="primary container-but mb-4 "
-                        type="submit">
+                        type="submit"
+                        onClick={handleLogin}>
                         Enviar
                     </Button>
                     <Container className="link-register">
@@ -85,7 +86,7 @@ function Login() {
                         variant="success"
                     ><h4 className="button-label">Continuar con Google</h4>
                         <Container className="google-icon-wrapper">
-                            <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="google button" />
+                            <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="30px" height="30px" alt="google button" />
                         </Container>
                     </Button>
 
